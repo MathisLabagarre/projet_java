@@ -1,32 +1,88 @@
-import java.util.Stack;
-
 public class PileRPL {
     
     private final int maxSize = 10;
-    private Stack<ObjRPL> pile;
+    private ObjRPL [] pile;
+    private int nbElements;
 
     public static void main(String args[]){
         //A ENLEVER 
     }
 
     public PileRPL(){
-        this.pile = new Stack<ObjRPL>();
+        pile = new ObjRPL[maxSize];
+        nbElements = 0;
+    }
+
+    public ObjRPL pop(){
+        ObjRPL firstObj = pile[0];
+        for(int i = 1; i < maxSize - 1; i++){
+            pile[i - 1] = pile[i];
+        }
+        nbElements--;
+        return firstObj;
     }
 
     public void stack(ObjRPL objet){
-        this.pile.add(objet);
+        if(nbElements >= maxSize){
+            System.out.println("Ne peut plus empiler car la pile est pleine");
+        }
+        else{
+            for(int i = nbElements; i > 0; i--)
+                pile[i] = pile[i - 1];
+            pile[0] = objet;
+            nbElements++;
+        }
     }
 
     public void add(){
-        ObjRPL v1 = pile.pop();
-        ObjRPL v2 = pile.pop();
-        //this.pile.add(v1.add(v2));
+        if(nbElements < 2){
+            System.out.println("Pas assez d'éléments dans la pile pour aditionner.");
+        }
+        else{
+            ObjRPL v1 = pop();
+            ObjRPL v2 = pop();
+            v1.objAdd(v2);
+            stack(v1);
+            nbElements--;
+        }
     }
 
-    public void stackPrint(){
-        for(int i = 0; i < this.pile.size(); i++){
-            this.pile.elementAt(i).printObj();
-            System.out.println("\n");
+    public void print(){
+        int largeurTab = 0;
+        for(int i = 0; i < maxSize; i++){
+            if(pile[i] == null){
+                break;
+            }
+            String chaine = pile[i].toString();
+            largeurTab = (chaine.length() > largeurTab ? chaine.length() : largeurTab);
         }
+
+        String chaineVide = "";
+        for(int j = 0; j < largeurTab; j++){
+            chaineVide += " ";
+        }
+        for(int i = maxSize - 1; i >= 0; i--){
+            String chaine = "";
+            if(pile[i] == null) chaine = chaineVide;
+            else chaine = pile[i].toString();
+
+            if(chaine.length() < largeurTab){
+                for(int j = 0; j < largeurTab - chaine.length() + j; j++){
+                    if(j%2 == 1) chaine = chaine + " ";
+                    else chaine = " " + chaine;
+                }
+            }
+            System.out.print("+");
+            for(int k = 0; k < largeurTab; k++){
+                System.out.print("-");
+            }
+            System.out.print("+\n");
+            System.out.print("|" + chaine + "|\n");
+        }
+        System.out.print("+");
+        for(int k = 0; k < largeurTab; k++){
+            System.out.print("-");
+        }
+        System.out.println("+\n");
     }
 }

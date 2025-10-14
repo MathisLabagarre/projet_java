@@ -1,6 +1,6 @@
 public class ObjRPL{
     
-    private int[] value;
+    private int [] value;
 
     // public static void main(String args[]){
     //     // A SUPPRIMER 
@@ -29,21 +29,29 @@ public class ObjRPL{
         return this.value.length;
     }
 
-    public ObjRPL objAdd(ObjRPL v1){
+    public String toString(){
+        String chaine = "";
+        for(int i = 0; i < value.length - 1; i++){
+            chaine += value[i] + ", ";
+        }
+        chaine += value[value.length - 1];
+        return chaine;
+    }
+
+    public void objAdd(ObjRPL v1){
         if(this.value.length != v1.value.length){
             System.out.println("Ne peut pas aditionner deux vecteurs de taille différente");
-            return v1;
+            return;
         }
-        
+        for(int i = 0; i < this.value.length; i++){
+            this.value[i] += v1.value[i];
+        }
     }
 
     public void printObj(){
-        for(int i = 0; i < this.value.length; i++){
-            System.out.print(value[i] + " ");
+        for(int i = 0; i < value.length - 1; i++){
+            System.out.print(value[i] + ", ");
         }
+        System.out.print(value[value.length - 1] + " \n");
     }
-
-    // public ObjRPL add(ObjRPL value){
-    //     return 
-    // }
 }
