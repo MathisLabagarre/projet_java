@@ -4,10 +4,6 @@ public class PileRPL {
     private ObjRPL [] pile;
     private int nbElements;
 
-    public static void main(String args[]){
-        //A ENLEVER 
-    }
-
     public PileRPL(){
         pile = new ObjRPL[maxSize];
         nbElements = 0;
@@ -36,18 +32,45 @@ public class PileRPL {
 
     public void add(){
         if(nbElements < 2){
-            System.out.println("Pas assez d'éléments dans la pile pour aditionner.");
+            System.out.println("Pas assez d'éléments dans la pile pour additionner.");
         }
         else{
             ObjRPL v1 = pop();
             ObjRPL v2 = pop();
             v1.objAdd(v2);
             stack(v1);
-            nbElements--;
+        }
+    }
+
+    public void subst(){
+        if(nbElements < 2){
+            System.out.println("Pas assez d'élements dans la pile pour soustraire");
+        }
+        else{
+            ObjRPL v1 = pop();
+            ObjRPL v2 = pop();
+            v1.objSubs(v2);
+            stack(v1);
+        }
+    }
+
+    public void swap(){
+        if(nbElements < 2){
+            System.out.println("Pas assez d'élements dans la pile pour soustraire");
+        }
+        else{
+            ObjRPL v1 = pop();
+            ObjRPL v2 = pop();
+            stack(v1);
+            stack(v2);
         }
     }
 
     public void print(){
+        // for(int i = 0; i < pile.length; i++){
+        //     System.out.print(pile[i] + " ");
+        // }
+
         int largeurTab = 0;
         for(int i = 0; i < maxSize; i++){
             if(pile[i] == null){
