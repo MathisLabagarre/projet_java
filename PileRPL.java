@@ -23,7 +23,7 @@ public class PileRPL {
             System.out.println("Ne peut plus empiler car la pile est pleine");
         }
         else{
-            for(int i = nbElements; i > 0; i--)
+            for(int i = 1; i < maxSize; i++)
                 pile[i] = pile[i - 1];
             pile[0] = objet;
             nbElements++;
