@@ -19,8 +19,8 @@ public class ServerRPL {
                 ServerSocket socket = new ServerSocket(23456);
                 socket.accept();
                 new ServiceRPL(socket);
-
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

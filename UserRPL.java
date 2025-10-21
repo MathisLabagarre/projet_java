@@ -3,7 +3,6 @@ public class UserRPL {
     boolean local;
     String log;
     
-
     public static void main(String[] args){
         switch (args.length) {
             case 2:
@@ -31,10 +30,16 @@ public class UserRPL {
     public UserRPL(){
         this.local = true;
         this.log = "none";
+        ServiceRPL service = new ServiceRPL("none");
+    }
+
+    public UserRPL(String log){
+        this.local = true;
+        this.log = log;
     }
 
     public UserRPL(boolean local, String log){
         this.local = local;
-        this.log = log;
+        this.log = "none";
     }
 }
