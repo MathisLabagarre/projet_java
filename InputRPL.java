@@ -1,6 +1,7 @@
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.FileReader;
+import java.net.Socket;
 import java.io.BufferedReader;
 
 public class InputRPL {
@@ -9,10 +10,18 @@ public class InputRPL {
     BufferedReader reader;
     String query;
     Boolean replay;
+    boolean local;
+    Socket socket;
+
+    public InputRPL(Socket socket){
+        this.local = false;
+        this.socket = socket;
+    }
 
     public InputRPL(boolean local, String log){
         query = "";
         if (local){
+            this.local = true;
             if(log.equals("replay")){
                 this.replay = true;
                 try{
@@ -27,30 +36,37 @@ public class InputRPL {
                 this.replay = false;
             }
         }
-        else{
-
-        }
     }
 
     public void scan(){
-        if(replay){
-            try{
-                this.query = this.reader.readLine();
-                if(this.query == null){
+        if(local){
+            if(replay){
+                try{
+                    this.query = this.reader.readLine();
+                    if(this.query == null){
+                        this.query = "exit";
+                    }
+                }
+                catch(Exception e){
                     this.query = "exit";
                 }
             }
-            catch(Exception e){
-                this.query = "exit";
+            else{
+                try{
+                    this.query = this.stdin.nextLine();
+                }
+                catch(NoSuchElementException e){
+                    e.printStackTrace();
+                    this.query = "";
+                }
             }
         }
         else{
             try{
-                this.query = this.stdin.nextLine();
+                this.query = socket.getInputStream().toString();
             }
-            catch(NoSuchElementException e){
-                e.printStackTrace();
-                this.query = "";
+            catch(Exception e){
+                this.query = "exit";
             }
         }
     }

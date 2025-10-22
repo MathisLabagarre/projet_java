@@ -1,15 +1,16 @@
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class ServerRPL {
 
-    public static void main(){
+    public static void main(String[] args) {
         boolean mode = true;        //définit le mode du serveur : 1 pour synchronisé 0 pour désynchronisé  
         if(mode == true){
-
+            new ServerRPL();
         }
         else{
-            
+            new ServerRPL();
         }
     }
 

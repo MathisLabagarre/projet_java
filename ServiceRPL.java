@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.Socket;
 import java.net.ServerSocket;
 
 public class ServiceRPL extends Thread {
@@ -7,6 +8,7 @@ public class ServiceRPL extends Thread {
     OutputRPL out;
     PileRPL pile;
     LogRPL logger;
+    Socket socket;
 
     public ServiceRPL(ServerSocket socket) throws IOException{
         start();
@@ -119,5 +121,9 @@ public class ServiceRPL extends Thread {
             this.pile.print();
         }
         this.in.close();
+    }
+
+    public void run(){
+        runCalc("none");
     }
 }
