@@ -30,9 +30,9 @@ public class ObjRPL{
         return chaine;
     }
 
-    public void objAdd(ObjRPL v1){
+    public void objAdd(ObjRPL v1) throws Exception{
         if(this.value.length != v1.value.length){
-            System.out.println("Ne peut pas aditionner deux vecteurs de taille différente");
+            throw new Exception("Ne peut pas aditionner deux vecteurs de taille différente");
         }
         else{
             for(int i = 0; i < this.value.length; i++){
@@ -41,9 +41,9 @@ public class ObjRPL{
         }
     }
 
-    public void objSubs(ObjRPL v1){
+    public void objSubs(ObjRPL v1) throws Exception{
         if(this.value.length != v1.value.length){
-            System.out.println("Ne peut pas soustraire deux vecteurs de taille différente");
+            throw new Exception("Ne peut pas soustraire deux vecteurs de taille différente");
         }
         else{
             for(int i = 0; i < this.value.length; i++){
@@ -52,9 +52,9 @@ public class ObjRPL{
         }
     }
 
-    public void diviObj(ObjRPL v1){
+    public void objDivi(ObjRPL v1) throws Exception{
         if(this.value.length != v1.value.length){
-            System.out.println("Ne peut pas diviser deux vecteurs de taille différente");
+            throw new Exception("Ne peut pas diviser deux vecteurs de taille différente");
         }
         else{
             for(int i = 0; i < this.value.length; i++){
@@ -69,9 +69,9 @@ public class ObjRPL{
         }
     }
 
-    public void objMult(ObjRPL v1){
+    public void objMult(ObjRPL v1) throws Exception{
         if(this.value.length != v1.value.length){
-            System.out.println("Ne peut pas multiplier deux vecteurs de taille différente");
+            throw new Exception("Ne peut pas multiplier deux vecteurs de taille différente");
         }
         else{
             for(int i = 0; i < this.value.length; i++){

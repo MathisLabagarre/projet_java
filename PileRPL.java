@@ -10,53 +10,60 @@ public class PileRPL {
     }
 
     public ObjRPL pop(){
-        ObjRPL firstObj = pile[0];
-        for(int i = 1; i < maxSize - 1; i++){
-            pile[i - 1] = pile[i];
-        }
+        ObjRPL obj = pile[nbElements - 1];
+        pile[nbElements] = null;
         nbElements--;
-        return firstObj;
+        return obj;
     }
 
-    public void stack(ObjRPL objet){
+    public void stack(ObjRPL objet) throws Exception{
         if(nbElements >= maxSize){
-            System.out.println("Ne peut plus empiler car la pile est pleine");
+            throw new Exception("Ne peut plus empiler car la pile est pleine");
         }
         else{
-            for(int i = 1; i < maxSize; i++)
-                pile[i] = pile[i - 1];
-            pile[0] = objet;
+            pile[nbElements] = objet;
             nbElements++;
         }
     }
 
-    public void add(){
+    public void add() throws Exception{
         if(nbElements < 2){
-            System.out.println("Pas assez d'éléments dans la pile pour additionner.");
+            throw new Exception("Pas assez d'éléments dans la pile pour additionner.");
         }
         else{
             ObjRPL v1 = pop();
             ObjRPL v2 = pop();
-            v1.objAdd(v2);
-            stack(v1);
+            try {
+                v1.objAdd(v2);
+                stack(v1);
+            }
+            catch(Exception e){
+                throw e;
+            }
+ 
         }
     }
 
-    public void subst(){
+    public void subst() throws Exception{
         if(nbElements < 2){
-            System.out.println("Pas assez d'élements dans la pile pour soustraire");
+            throw new Exception("Pas assez d'élements dans la pile pour soustraire");
         }
         else{
             ObjRPL v1 = pop();
             ObjRPL v2 = pop();
-            v1.objSubs(v2);
-            stack(v1);
+            try{
+                v1.objSubs(v2);
+                stack(v1);
+            }
+            catch(Exception e){
+                throw e;
+            }
         }
     }
 
-    public void swap(){
+    public void swap() throws Exception{
         if(nbElements < 2){
-            System.out.println("Pas assez d'élements dans la pile pour soustraire");
+            throw new Exception("Pas assez d'élements dans la pile pour échanger");
         }
         else{
             ObjRPL v1 = pop();
@@ -65,12 +72,42 @@ public class PileRPL {
             stack(v2);
         }
     }
+    
+    public void mult() throws Exception{
+        if(nbElements < 2){
+            throw new Exception("Pas assez d'élements dans la pile pour multiplier");
+        }
+        else{
+            ObjRPL v1 = pop();
+            ObjRPL v2 = pop();
+            try {
+                v1.objMult(v2);
+                stack(v1);
+            }
+            catch (Exception e){
+                throw e;
+            }
+        }
+    }
+
+    public void div() throws Exception{
+        if(nbElements < 2){
+            throw new Exception("Pas assez d'élements dans la pile pour diviser");
+        }
+        else{
+            ObjRPL v1 = pop();
+            ObjRPL v2 = pop();
+            try{
+                v1.objDivi(v2);
+                stack(v1);
+            }
+            catch (Exception e){
+                throw e;
+            }
+        }
+    }
 
     public void print(){
-        // for(int i = 0; i < pile.length; i++){
-        //     System.out.print(pile[i] + " ");
-        // }
-
         int largeurTab = 0;
         for(int i = 0; i < maxSize; i++){
             if(pile[i] == null){
