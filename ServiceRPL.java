@@ -1,6 +1,4 @@
-import java.io.IOException;
 import java.net.Socket;
-import java.net.ServerSocket;
 
 public class ServiceRPL extends Thread {
 
@@ -10,9 +8,12 @@ public class ServiceRPL extends Thread {
     LogRPL logger;
     Socket socket;
 
-    public ServiceRPL(ServerSocket socket) throws IOException{
+    public ServiceRPL(Socket socket, PileRPL pile){
+        this.socket = socket;
+        this.in = new InputRPL(socket);
+        this.out = new OutputRPL(socket);
+        this.pile = pile;
         start();
-        socket.close();
     }
 
     public ServiceRPL(String log){
@@ -25,9 +26,8 @@ public class ServiceRPL extends Thread {
     public void runCalc(String log){
         if (log.equals("rec")) this.logger = new LogRPL();
         while (!this.in.query.equals("exit")){
-            out.print("RPL COMMAND> ");
+            out.print("RPL COMMAND> \r\n");
             this.in.scan();
-            System.out.println("Received command: " + this.in.query);
             String[] something = this.in.query.trim().split(" ");
             int[] values = new int[3];
             try{
@@ -37,7 +37,7 @@ public class ServiceRPL extends Thread {
                 ObjRPL obj;
                 switch (something.length) {
                     case 0:
-                        this.pile.print();
+                        this.pile.print(this.out);
                         break;
                     case 1:
                         obj = new ObjRPL(values[0]);
@@ -71,7 +71,7 @@ public class ServiceRPL extends Thread {
                         if(log.equals("rec")) this.logger.writeLog(this.in.query);
                     }
                     catch(Exception e1){
-                        this.out.print("Problème lors de l'addition : " + e1.getMessage());
+                        this.out.print("Problème lors de l'addition : " + e1.getMessage() + "\n");
                     }
                 }
                 else if(item.equals("-")){
@@ -80,7 +80,7 @@ public class ServiceRPL extends Thread {
                         if(log.equals("rec")) this.logger.writeLog(this.in.query);
                     }
                     catch(Exception e1){
-                        this.out.print("Problème lors de la soustraction : " + e1.getMessage());
+                        this.out.print("Problème lors de la soustraction : " + e1.getMessage() + "\n");
                     }
                 }
                 else if(item.equals("*")){
@@ -89,7 +89,7 @@ public class ServiceRPL extends Thread {
                         if(log.equals("rec")) this.logger.writeLog(this.in.query);
                     }
                     catch(Exception e1){
-                        this.out.print("Problème lors de la multiplication : " + e1.getMessage());
+                        this.out.print("Problème lors de la multiplication : " + e1.getMessage() + "\n");
                     }
                 }
                 else if(item.equals("/")){
@@ -98,7 +98,7 @@ public class ServiceRPL extends Thread {
                         if(log.equals("rec")) this.logger.writeLog(this.in.query);
                     }
                     catch(Exception e1){
-                        this.out.print("Problème lors de la division : " + e1.getMessage());
+                        this.out.print("Problème lors de la division : " + e1.getMessage() + "\n");
                     }
                 }
                 else if(item.equals("s")){
@@ -107,7 +107,7 @@ public class ServiceRPL extends Thread {
                         if(log.equals("rec")) this.logger.writeLog(this.in.query);
                     }
                     catch(Exception e1){
-                        this.out.print("Problème lors de l'échange : " + e1.getMessage());
+                        this.out.print("Problème lors de l'échange : " + e1.getMessage() + "\n");
                     }
                 }
                 else{
@@ -115,15 +115,21 @@ public class ServiceRPL extends Thread {
                 }
             }
             catch(Exception e){
-                this.out.print("Problème " + e);
-                break;
+                this.out.print(e + "\nAucun changement n'a été effectué, faites tout de même attention !\n");
             }
-            this.pile.print();
+            this.pile.print(this.out);
+            this.out.print("fin\n");
         }
         this.in.close();
     }
 
     public void run(){
         runCalc("none");
+        try{
+            this.socket.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

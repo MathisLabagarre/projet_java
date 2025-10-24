@@ -1,3 +1,9 @@
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.Scanner;
+import java.io.BufferedReader;
+
 public class UserRPL {
 
     boolean local;
@@ -45,5 +51,27 @@ public class UserRPL {
     public UserRPL(boolean local){
         this.local = local;
         this.log = "none";
+        try{
+            Socket socket = new Socket("127.0.0.1", 23456);
+            Scanner scanner = new Scanner(System.in);
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            while (true) {
+                System.out.print(br.readLine());
+                String message = scanner.nextLine().toString();
+                socket.getOutputStream().write((message + "\n").getBytes());
+                String recu = "";
+                while(!recu.equals("fin")){
+                    if(!recu.equals("fin")) System.out.println(recu = br.readLine());
+                }
+                System.out.println("");
+                if(message.equals("exit")){
+                    break;
+                }
+            }
+            scanner.close();
+            socket.close();
+        } catch (IOException e) {
+            System.out.println("Arrêt du programme : " + e);
+        }
     }
 }

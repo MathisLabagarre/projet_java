@@ -11,7 +11,7 @@ public class PileRPL {
 
     public ObjRPL pop(){
         ObjRPL obj = pile[nbElements - 1];
-        pile[nbElements] = null;
+        pile[nbElements - 1] = null;
         nbElements--;
         return obj;
     }
@@ -38,6 +38,7 @@ public class PileRPL {
                 stack(v1);
             }
             catch(Exception e){
+                System.out.println(e);
                 throw e;
             }
  
@@ -107,7 +108,7 @@ public class PileRPL {
         }
     }
 
-    public void print(){
+    public void print(OutputRPL output){
         int largeurTab = 0;
         for(int i = 0; i < maxSize; i++){
             if(pile[i] == null){
@@ -132,17 +133,17 @@ public class PileRPL {
                     else chaine = " " + chaine;
                 }
             }
-            System.out.print("+");
+            output.print("+");
             for(int k = 0; k < largeurTab; k++){
-                System.out.print("-");
+                output.print("-");
             }
-            System.out.print("+\n");
-            System.out.print("|" + chaine + "|\n");
+            output.print("+\n");
+            output.print("|" + chaine + "|\n");
         }
-        System.out.print("+");
+        output.print("+");
         for(int k = 0; k < largeurTab; k++){
-            System.out.print("-");
+            output.print("-");
         }
-        System.out.println("+\n");
+        output.print("+\n");
     }
 }

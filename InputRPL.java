@@ -1,25 +1,39 @@
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.Socket;
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 public class InputRPL {
     
-    Scanner stdin;
-    BufferedReader reader;
     String query;
     Boolean replay;
     boolean local;
+
+    Scanner stdin;
+    BufferedReader reader;
+
+    BufferedReader in;
     Socket socket;
 
     public InputRPL(Socket socket){
+        this.query = "";
         this.local = false;
         this.socket = socket;
+        try {
+            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public InputRPL(boolean local, String log){
-        query = "";
+        this.query = "";
         if (local){
             this.local = true;
             if(log.equals("replay")){
@@ -63,7 +77,7 @@ public class InputRPL {
         }
         else{
             try{
-                this.query = socket.getInputStream().toString();
+                this.query = in.readLine();
             }
             catch(Exception e){
                 this.query = "exit";
@@ -72,15 +86,25 @@ public class InputRPL {
     }
 
     public void close(){
-        if(!this.replay) this.stdin.close();
-        if(this.replay){
+        if(this.local){
+            if(!this.replay) this.stdin.close();
+            if(this.replay){
+                try{
+                    this.reader.close();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+            }
+        }
+        else{
             try{
-                this.reader.close();
+                this.socket.close();
             }
             catch(Exception e){
                 e.printStackTrace();
             }
-            
         }
     }
 }
