@@ -24,7 +24,6 @@ public class OutputRPL {
     }
 
     public void print(String message){
-        System.out.print(message);
         this.out.print(message);
         this.out.flush();
     }
