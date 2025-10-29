@@ -29,12 +29,7 @@ public class UserRPL {
                     System.out.println("Veuillez entrer seulement 2 objets et un opérateur");
                 }
                 else{
-                    try{
-                        new ServiceRPL(input);
-                    }
-                    catch(Exception e){
-                        System.out.println("Vous ne pouvez pas faire ça ! " + e);
-                    }
+                    new UserRPL(input);
                 }
                 break;
             case 0:
@@ -51,6 +46,17 @@ public class UserRPL {
         this.local = true;
         this.log = "none";
         new ServiceRPL(this.log);
+    }
+
+    public UserRPL(String[] input){
+        this.local = true;
+        this.log = "none";
+        try{
+            new ServiceRPL(input);
+        }
+        catch(Exception e){
+            System.out.println("Vous ne pouvez pas faire ça ! " + e);
+        }
     }
 
     public UserRPL(String log){
