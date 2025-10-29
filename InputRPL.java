@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 public class InputRPL {
     
     String query;
-    Boolean replay;
+    boolean replay;
     boolean local;
 
     Scanner stdin;

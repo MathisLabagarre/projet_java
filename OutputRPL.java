@@ -2,7 +2,7 @@ import java.net.Socket;
 import java.io.PrintWriter;
 
 public class OutputRPL {
-    Boolean local;
+    boolean local;
     
     Socket socket;
     PrintWriter out;

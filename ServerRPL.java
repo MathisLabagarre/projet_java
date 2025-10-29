@@ -6,7 +6,7 @@ public class ServerRPL {
 
     boolean mode;
     public static void main(String[] args) {
-        Boolean mode = true;        //définit le mode du serveur : 1 pour synchronisé 0 pour désynchronisé  
+        boolean mode = true;        //définit le mode du serveur : 1 pour synchronisé 0 pour désynchronisé  
         new ServerRPL(mode);
     }
 
