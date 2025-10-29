@@ -23,6 +23,32 @@ public class ServiceRPL extends Thread {
         runCalc(log);
     }
 
+    public ServiceRPL(String[] args) throws Exception{
+        this.in = new InputRPL(true, "none");
+        this.out = new OutputRPL();
+        this.pile = new PileRPL();
+        ObjRPL chiffre1 = new ObjRPL(Integer.parseInt(args[0])); 
+        ObjRPL chiffre2 = new ObjRPL(Integer.parseInt(args[1]));
+        pile.stack(chiffre1);
+        pile.stack(chiffre2);
+        if(args[2].equals("+")){
+            pile.add();
+        }
+        else if(args[2].equals("-")){
+            pile.subst();
+        }
+        else if(args[2].equals("/")){
+            pile.div();
+        }
+        else if(args[2].equals("*")){
+            pile.mult();
+        }
+        else{
+            throw new Exception("Vous devez choisir un opérateur.");
+        }
+        runCalc("nnne");
+    }
+
     public void runCalc(String log){
         if (log.equals("rec")) this.logger = new LogRPL();
         while (!this.in.query.equals("exit")){

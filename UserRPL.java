@@ -24,7 +24,18 @@ public class UserRPL {
                 }
                 break;
             case 1:
-                //parse entrée puis écoute en local
+                String[] input = args[0].split(" ");
+                if(input.length != 3){
+                    System.out.println("Veuillez entrer seulement 2 objets et un opérateur");
+                }
+                else{
+                    try{
+                        new ServiceRPL(input);
+                    }
+                    catch(Exception e){
+                        System.out.println("Vous ne pouvez pas faire ça ! " + e);
+                    }
+                }
                 break;
             case 0:
                 new UserRPL();

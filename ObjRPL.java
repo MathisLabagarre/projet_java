@@ -59,8 +59,7 @@ public class ObjRPL{
         else{
             for(int i = 0; i < this.value.length; i++){
                 if(v1.value[i] == 0){
-                    System.out.println("Impossible de diviser par 0. Aucun changement n'a été fait");
-                    return;
+                    throw new Exception("Impossible de diviser par 0.");
                 }
             }
             for(int i = 0; i < this.value.length; i++){
