@@ -32,7 +32,7 @@ public class ObjRPL{
 
     public void objAdd(ObjRPL v1) throws Exception{
         if(this.value.length != v1.value.length){
-            throw new Exception("Ne peut pas aditionner deux vecteurs de taille différente");
+            throw new Exception("Ne peut pas additionner deux vecteurs de taille différente");
         }
         else{
             for(int i = 0; i < this.value.length; i++){

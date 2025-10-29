@@ -38,6 +38,8 @@ public class PileRPL {
                 stack(v1);
             }
             catch(Exception e){
+                stack(v2);
+                stack(v1);
                 System.out.println(e);
                 throw e;
             }
@@ -57,6 +59,8 @@ public class PileRPL {
                 stack(v1);
             }
             catch(Exception e){
+                stack(v2);
+                stack(v1);
                 throw e;
             }
         }
@@ -86,6 +90,8 @@ public class PileRPL {
                 stack(v1);
             }
             catch (Exception e){
+                stack(v2);
+                stack(v1);
                 throw e;
             }
         }
@@ -103,6 +109,8 @@ public class PileRPL {
                 stack(v1);
             }
             catch (Exception e){
+                stack(v2);
+                stack(v1);
                 throw e;
             }
         }
