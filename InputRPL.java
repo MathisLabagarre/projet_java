@@ -49,6 +49,11 @@ public class InputRPL {
                 this.stdin = new Scanner(System.in);
                 this.replay = false;
             }
+            else if(log.equals("rec"))
+            {
+                this.stdin = new Scanner(System.in);
+                this.replay = false;
+            }
         }
     }
 

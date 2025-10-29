@@ -15,9 +15,14 @@ public class UserRPL {
                 String[] user = args[0].split("=");
                 if(!user[0].equals("-user")) break; //à changer pour expliquer le pb à l'utilisateur
                 if (user[1].equals("local")) {
-                    if(!args[1].startsWith("-log=")) break;
                     String[] logs = args[1].split("=");
-                    new UserRPL(logs[1]);
+                    if(!logs[0].equals("-log")) break;
+                    if(logs[1].equals("none") || logs[1].equals("replay") || logs[1].equals("rec")){
+                        new UserRPL(logs[1]);
+                    }
+                    else{
+                        System.out.println("Vous devez sélectionner un mode de log valide !");
+                    }
                 }
                 else if (user[1].equals("remote")){
                     new UserRPL(false);
